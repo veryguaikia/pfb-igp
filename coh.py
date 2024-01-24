@@ -61,8 +61,18 @@ def analyze_cash_on_hand(csv_path):
             file.write("[CASH DEFICIT] CASH ON EACH DAY IS LOWER THAN THE PREVIOUS DAY\n")
             file.write(f"[HIGHEST CASH DEFICIT] DAY: {highest_decrement[0]}, AMOUNT: {abs(highest_decrement[1])}\n")
         else:
-            # Sort and write deficits
-            deficits = sorted([(day, -amount) for day, amount in daily_differences if amount < 0], key=lambda x: x[0])
+            # Initialize an empty list for deficits
+            deficits = []
+
+            # Iterate through each record in daily_differences
+            for day, amount in daily_differences:
+                # Include only the records where the amount is less than zero
+                if amount < 0:
+                    # Append the day and the negated amount to the deficits list
+                    deficits.append((day, -amount))
+
+            # Sort the deficits list by the day
+            deficits = sorted(deficits, key=lambda x: x[0])
             for deficit in deficits:
                 file.write(f"[CASH DEFICIT] DAY: {deficit[0]}, AMOUNT: USD{deficit[1]}\n")
 
