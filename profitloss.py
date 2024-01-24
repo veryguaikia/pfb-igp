@@ -57,7 +57,7 @@ def analyze_netprofit(csv_path):
             file.write(f"[HIGHEST PROFIT SURPLUS] DAY: {highest_increment[0]}, AMOUNT: {highest_increment[1]}\n")
             # Identify and write the day with the highest profit decrease
         elif decreasing:
-            highest_decrement = max(daily_differences, key=lambda x: x[1])
+            highest_decrement = min(daily_differences, key=lambda x: x[1])
             file.write("[NET PROFIT DEFICIT] CASH ON EACH DAY IS LOWER THAN THE PREVIOUS DAY\n")
             file.write(f"[HIGHEST PROFIT DEFICIT] DAY: {highest_decrement[0]}, AMOUNT: {abs(highest_decrement[1])}\n")
         else:
@@ -79,4 +79,6 @@ def analyze_netprofit(csv_path):
             # Extract and write the top 3 highest deficits
             top_deficits = sorted(deficits, key=lambda x: x[1], reverse=True)[:3]
             for i, deficit in enumerate(top_deficits, start=1):
-                file.write(f"[{'HIGHEST' if i == 1 else '2ND HIGHEST' if i == 2 else '3RD HIGHEST'} PROFIT DEFICIT] DAY: {deficit[0]}, AMOUNT: USD{deficit[1]}\n")
+                file.write(f"[{'HIGHEST' if i == 1 else '2ND HIGHEST' if i == 2 else '3RD HIGHEST'} PROFIT DEFICIT] 
+                           DAY: {deficit[0]}, 
+                           AMOUNT: USD{deficit[1]}\n")
