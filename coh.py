@@ -32,7 +32,7 @@ def analyze_cash_on_hand(csv_path):
     # Initialize an empty list for the daily differences
     daily_differences = []
 
-    # Iterate over the profit and loss records in pairs
+    # Iterate over the cash-on-hand record in pairs
     for previous_record, current_record in zip(coh_records, coh_records[1:]):
         # Extract the day and value from each record
         previous_day, previous_value = previous_record
