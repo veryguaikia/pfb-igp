@@ -16,17 +16,18 @@ def find_highest_overhead(csv_path):
         reader = csv.reader(file)
         next(reader)
           
-        # Initialize highest overhead and category
-        highest_overhead = None
-        highest_overhead_category = None
+        # Initialize variables for tracking the highest overhead
+        highest_overhead = 0
+        highest_overhead_category = ""
 
-        for category, overhead in reader:
-            # Convert overhead to float for comparison
-            overhead_value = float(overhead)
+        # Process each record
+        for row in reader:
+            category, overhead = row
+            overhead = float(overhead)
 
             # Update highest overhead and category if necessary
-            if highest_overhead is None or overhead_value > highest_overhead:
-                highest_overhead = overhead_value
+            if overhead > highest_overhead:
+                highest_overhead = overhead
                 highest_overhead_category = category
 
     # Write the result to the summary report text file
