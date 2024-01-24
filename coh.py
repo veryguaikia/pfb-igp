@@ -79,6 +79,4 @@ def analyze_cash_on_hand(csv_path):
             # Extract and write the top 3 highest deficits
             top_deficits = sorted(deficits, key=lambda x: x[1], reverse=True)[:3]
             for i, deficit in enumerate(top_deficits, start=1):
-                file.write(f"[{'HIGHEST' if i == 1 else '2ND HIGHEST' if i == 2 else '3RD HIGHEST'} CASH DEFICIT] 
-                           DAY: {deficit[0]}, 
-                           AMOUNT: USD{deficit[1]}\n")
+                file.write(f"[{'HIGHEST' if i == 1 else '2ND HIGHEST' if i == 2 else '3RD HIGHEST'} CASH DEFICIT] DAY: {deficit[0]}, AMOUNT: USD{deficit[1]}\n")
