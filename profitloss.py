@@ -24,7 +24,7 @@ def analyze_netprofit(csv_path):
         # Initialize an empty list for the profit-and-loss records
         profitloss_records = []
         for row in reader:
-            # Convert the first two elements of each row to integers
+            # Convert the first (day) and fifth (net profit) elements of each row to integers
             record = [int(row[0]), int(row[4])]  
             # Append the converted record to the list
             profitloss_records.append(record)  
