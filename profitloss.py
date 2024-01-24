@@ -21,8 +21,13 @@ def analyze_netprofit(csv_path):
         reader = csv.reader(file)
         next(reader)  
 
-        # Extract and convert profit/loss records to integer
-        profitloss_records = [list(map(int, [row[0], row[4]])) for row in reader]
+        # Initialize an empty list for the profit-and-loss records
+        profitloss_records = []
+        for row in reader:
+            # Convert the first two elements of each row to integers
+            record = [int(row[0]), int(row[4])]  
+            # Append the converted record to the list
+            profitloss_records.append(record)  
 
     # Initialize an empty list for the daily differences
     daily_differences = []

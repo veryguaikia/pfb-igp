@@ -21,8 +21,13 @@ def analyze_cash_on_hand(csv_path):
         reader = csv.reader(file)
         next(reader) 
 
-        # Extract cash-on-hand records and convert to integer
-        coh_records = [list(map(int, [row[0], row[1]])) for row in reader]
+        # Initialize an empty list for the cash-on-hand records
+        coh_records = []
+        for row in reader:
+            # Convert the first two elements of each row to integers
+            record = [int(row[0]), int(row[1])]  
+            # Append the converted record to the list
+            coh_records.append(record)  
 
     # Initialize an empty list for the daily differences
     daily_differences = []
