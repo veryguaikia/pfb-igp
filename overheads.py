@@ -17,7 +17,9 @@ def find_highest_overhead(csv_path):
         next(reader)
           
         # Use a list comprehension with max to find the record with the highest overhead
-        highest_overhead, highest_overhead_category = max((float(overhead), category) for category, overhead in reader)
+        highest_overhead, highest_overhead_category = max(
+            (float(overhead), category) for category, overhead in reader
+            )
 
     # Write the result to the summary report text file
     with open("Summaryreport.txt", "w") as file:
