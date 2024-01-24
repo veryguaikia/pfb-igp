@@ -57,9 +57,9 @@ def analyze_cash_on_hand(csv_path):
             file.write(f"[HIGHEST CASH SURPLUS] DAY: {highest_increment[0]}, AMOUNT: {highest_increment[1]}\n")
             # Identify and write the day with the highest cash-on-hand decrease
         elif decreasing:
-            highest_decrement = min(daily_differences, key=lambda x: x[1])
+            highest_decrement = max(daily_differences, key=lambda x: x[1])
             file.write("[CASH DEFICIT] CASH ON EACH DAY IS LOWER THAN THE PREVIOUS DAY\n")
-            file.write(f"[HIGHEST CASH DEFICIT] DAY: {highest_decrement[0]}, AMOUNT: {abs(highest_decrement[1])}\n")
+            file.write(f"[HIGHEST CASH DEFICIT] DAY: {highest_decrement[0]}, AMOUNT: {(highest_decrement[1])}\n")
         else:
             # Initialize an empty list for deficits
             deficits = []
