@@ -56,7 +56,7 @@ def analyze_netprofit(csv_path):
                 highest_increment = diff
         with open("Summaryreport.txt", "a") as file:
             file.write("[PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY\n")
-            file.write(f"[HIGHEST PROFIT SURPLUS] DAY: {highest_increment[0]}, AMOUNT: {highest_increment[1]}\n")
+            file.write(f"[HIGHEST PROFIT SURPLUS] DAY: {highest_increment[0]}, AMOUNT: SGD{highest_increment[1]}\n")
 
     elif decreasing:
         highest_decrement = daily_differences[0]
@@ -65,7 +65,7 @@ def analyze_netprofit(csv_path):
                 highest_decrement = diff
         with open("Summaryreport.txt", "a") as file:
             file.write("[PROFIT DEFICIT] NET PROFIT ON EACH DAY IS LOWER THAN THE PREVIOUS DAY\n")
-            file.write(f"[HIGHEST PROFIT DEFICIT] DAY: {highest_decrement[0]}, AMOUNT: {abs(highest_decrement[1])}\n")
+            file.write(f"[HIGHEST PROFIT DEFICIT] DAY: {highest_decrement[0]}, AMOUNT: SGD{abs(highest_decrement[1])}\n")
 
     else:
         # Initialize a list to store deficits
@@ -99,14 +99,14 @@ def analyze_netprofit(csv_path):
         with open("Summaryreport.txt", "a") as file:
             # Recording all deficit days, ordered by day
             for deficit in deficits:
-                profitloss = f"[PROFIT DEFICIT] DAY: {deficit[0]}, AMOUNT: USD{deficit[1]}\n"
+                profitloss = f"[PROFIT DEFICIT] DAY: {deficit[0]}, AMOUNT: SGD{deficit[1]}\n"
                 file.write(profitloss)
 
             # Recording the top 3 highest deficit days
             if highest_deficit:
-                highest = f"[HIGHEST PROFIT DEFICIT] DAY: {highest_deficit[0]}, AMOUNT: USD{highest_deficit[1]}\n"
+                highest = f"[HIGHEST PROFIT DEFICIT] DAY: {highest_deficit[0]}, AMOUNT: SGD{highest_deficit[1]}\n"
             if second_highest_deficit:
-                second_highest = f"[2ND HIGHEST PROFIT DEFICIT] DAY: {second_highest_deficit[0]}, AMOUNT: USD{second_highest_deficit[1]}\n"
+                second_highest = f"[2ND HIGHEST PROFIT DEFICIT] DAY: {second_highest_deficit[0]}, AMOUNT: SGD{second_highest_deficit[1]}\n"
             if third_highest_deficit:
-                third_highest = f"[3RD HIGHEST PROFIT DEFICIT] DAY: {third_highest_deficit[0]}, AMOUNT: USD{third_highest_deficit[1]}\n"
+                third_highest = f"[3RD HIGHEST PROFIT DEFICIT] DAY: {third_highest_deficit[0]}, AMOUNT: SGD{third_highest_deficit[1]}\n"
                 file.write(highest + second_highest + third_highest)
