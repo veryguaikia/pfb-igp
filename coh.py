@@ -48,35 +48,65 @@ def analyze_cash_on_hand(csv_path):
     increasing = all(diff[1] > 0 for diff in daily_differences)
     decreasing = all(diff[1] < 0 for diff in daily_differences)
 
-    # Write analysis results to the summary report text file
-    with open("Summaryreport.txt", "a") as file:
-            # Identify and write the day with the cash-on-hand increase
-        if increasing:
-            highest_increment = max(daily_differences, key=lambda x: x[1])
-            file.write("[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY\n")
+# Analysis based on trend
+    if increasing:
+        highest_increment = daily_differences[0]
+        for diff in daily_differences:
+            if diff[1] > highest_increment[1]:
+                highest_increment = diff
+        with open("Summaryreport.txt", "a") as file:
+            file.write("[CASH SURPLUS] CASH-ON-HAND ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY\n")
             file.write(f"[HIGHEST CASH SURPLUS] DAY: {highest_increment[0]}, AMOUNT: {highest_increment[1]}\n")
-            # Identify and write the day with the highest cash-on-hand decrease
-        elif decreasing:
-            highest_decrement = max(daily_differences, key=lambda x: x[1])
-            file.write("[CASH DEFICIT] CASH ON EACH DAY IS LOWER THAN THE PREVIOUS DAY\n")
-            file.write(f"[HIGHEST CASH DEFICIT] DAY: {highest_decrement[0]}, AMOUNT: {(highest_decrement[1])}\n")
-        else:
-            # Initialize an empty list for deficits
-            deficits = []
 
-            # Iterate through each record in daily_differences
-            for day, amount in daily_differences:
-                # Include only the records where the amount is less than zero
-                if amount < 0:
-                    # Append the day and the negated amount to the deficits list
-                    deficits.append((day, -amount))
+    elif decreasing:
+        highest_decrement = daily_differences[0]
+        for diff in daily_differences:
+            if diff[1] < highest_decrement[1]:
+                highest_decrement = diff
+        with open("Summaryreport.txt", "a") as file:
+            file.write("[CASH DEFICIT] CASH-ON-HAND ON EACH DAY IS LOWER THAN THE PREVIOUS DAY\n")
+            file.write(f"[HIGHEST CASH DEFICIT] DAY: {highest_decrement[0]}, AMOUNT: {abs(highest_decrement[1])}\n")
 
-            # Sort the deficits list by the day
-            deficits = sorted(deficits, key=lambda x: x[0])
+    else:
+        # Initialize a list to store deficits
+        deficits = []
+
+        # Iterate over daily differences and directly add deficits to the list
+        for diff in daily_differences:
+            if diff[1] < 0:
+                # Store the day and the positive value of the deficit
+                deficits.append((diff[0], -diff[1]))  # Convert deficit to positive
+
+        # Function to return the second element of the list
+        def sort_by_amount(item):
+            """
+            - Returns the second element of a list.
+            - Function has one parameter, item.
+            """
+            return item[1]
+
+        # Sort the deficits in descending order based on the amount to find the top 3 highest deficits
+        deficits.sort(key=sort_by_amount, reverse=True)
+
+        # Extract the top 3 highest deficits
+        highest_deficit = deficits[0] if deficits else None
+        second_highest_deficit = deficits[1] if len(deficits) > 1 else None
+        third_highest_deficit = deficits[2] if len(deficits) > 2 else None
+
+        # Sort the deficits by day for the summary report
+        deficits.sort()
+
+        with open("Summaryreport.txt", "a") as file:
+            # Recording all deficit days, ordered by day
             for deficit in deficits:
-                file.write(f"[CASH DEFICIT] DAY: {deficit[0]}, AMOUNT: USD{deficit[1]}\n")
+                coh = f"[CASH DEFICIT] DAY: {deficit[0]}, AMOUNT: USD{deficit[1]}\n"
+                file.write(coh)
 
-            # Extract and write the top 3 highest deficits
-            top_deficits = sorted(deficits, key=lambda x: x[1], reverse=True)[:3]
-            for i, deficit in enumerate(top_deficits, start=1):
-                file.write(f"[{'HIGHEST' if i == 1 else '2ND HIGHEST' if i == 2 else '3RD HIGHEST'} CASH DEFICIT] DAY: {deficit[0]}, AMOUNT: USD{deficit[1]}\n")
+            # Recording the top 3 highest deficit days
+            if highest_deficit:
+                highest = f"[HIGHEST CASH DEFICIT] DAY: {highest_deficit[0]}, AMOUNT: USD{highest_deficit[1]}\n"
+            if second_highest_deficit:
+                second_highest = f"[2ND HIGHEST CASH DEFICIT] DAY: {second_highest_deficit[0]}, AMOUNT: USD{second_highest_deficit[1]}\n"
+            if third_highest_deficit:
+                third_highest = f"[3RD HIGHEST CASH DEFICIT] DAY: {third_highest_deficit[0]}, AMOUNT: USD{third_highest_deficit[1]}\n"
+                file.write(highest + second_highest + third_highest)
