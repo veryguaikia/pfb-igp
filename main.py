@@ -1,6 +1,6 @@
 from pathlib import Path
-import coh, profitloss, overheads
+import cash_on_hand, profit_loss, overheads
 
-overheads.find_highest_overhead(Path(r"csv reports\overheads.csv"))
-coh.analyze_cash_on_hand(Path(r"csv reports\cash-on-hand.csv"))
-profitloss.analyze_netprofit(Path(r"csv reports\profit-and-loss.csv"))
+overheads.find_highest_overhead(Path(r"csv_reports\Overheads.csv"))
+cash_on_hand.analyze_cash_on_hand(Path(r"csv_reports\Cash-on-Hand.csv"))
+profit_loss.analyze_netprofit(Path(r"csv_reports\Profit-and-Loss.csv"))
