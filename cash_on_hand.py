@@ -60,8 +60,8 @@ def analyze_cash_on_hand(csv_path):
             if diff[1] > highest_increment[1]:
                 highest_increment = diff
 
-        # Open the file "Summaryreport.txt" in append mode
-        with open("Summaryreport.txt", "a") as file:
+        # Open the file "summary_report.txt" in append mode
+        with open("summary_report.txt", "a") as file:
             # Write a line indicating a general cash surplus trend
             file.write("[CASH SURPLUS] CASH-ON-HAND ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY\n")
             # Write details of the day with the highest cash surplus and its amount
@@ -78,8 +78,8 @@ def analyze_cash_on_hand(csv_path):
             if diff[1] < highest_decrement[1]:
                 highest_decrement = diff
                 
-        # Open the file "Summaryreport.txt" in append mode
-        with open("Summaryreport.txt", "a") as file:
+        # Open the file "summary_report.txt" in append mode
+        with open("summary_report.txt", "a") as file:
             # Write a line indicating a general cash deficit trend
             file.write("[CASH DEFICIT] CASH-ON-HAND ON EACH DAY IS LOWER THAN THE PREVIOUS DAY\n")
             # Write details of the day with the highest cash deficit and its amount,
@@ -115,7 +115,7 @@ def analyze_cash_on_hand(csv_path):
         # Sort the deficits by day for the summary report
         deficits.sort()
 
-        with open("Summaryreport.txt", "a") as file:
+        with open("summary_report.txt", "a") as file:
             # Recording all deficit days, ordered by day
             for deficit in deficits:
                 coh = f"[CASH DEFICIT] DAY: {deficit[0]}, AMOUNT: SGD{deficit[1]}\n"
