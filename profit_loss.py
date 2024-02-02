@@ -60,8 +60,8 @@ def analyze_netprofit(csv_path):
                 # Update the highest increment with the current day's data.
                 highest_increment = diff
 
-        # Open the file "Summaryreport.txt" in append mode to add new content without overwriting existing data.
-        with open("Summaryreport.txt", "a") as file:
+        # Open the file "summary_report.txt" in append mode to add new content without overwriting existing data.
+        with open("summary_report.txt", "a") as file:
             # Write a summary line indicating a consistent profit surplus trend.
             file.write("[PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY\n")
             # Write the details of the day with the highest profit surplus and the amount.
@@ -78,8 +78,8 @@ def analyze_netprofit(csv_path):
                 # Update the highest decrement with the current day's data.
                 highest_decrement = diff
                 
-        # Open the file "Summaryreport.txt" in append mode.
-        with open("Summaryreport.txt", "a") as file:
+        # Open the file "summary_report.txt" in append mode.
+        with open("summary_report.txt", "a") as file:
             # Write a summary line indicating a consistent profit deficit trend.
             file.write("[PROFIT DEFICIT] NET PROFIT ON EACH DAY IS LOWER THAN THE PREVIOUS DAY\n")
             # Write the details of the day with the highest profit deficit and the amount,
@@ -115,7 +115,7 @@ def analyze_netprofit(csv_path):
         # Sort the deficits by day for the summary report
         deficits.sort()
 
-        with open("Summaryreport.txt", "a") as file:
+        with open("summary_report.txt", "a") as file:
             # Recording all deficit days, ordered by day
             for deficit in deficits:
                 profitloss = f"[PROFIT DEFICIT] DAY: {deficit[0]}, AMOUNT: SGD{deficit[1]}\n"
