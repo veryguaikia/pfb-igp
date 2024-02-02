@@ -30,7 +30,7 @@ def find_highest_overhead(csv_path):
                 highest_overhead = overhead
                 highest_overhead_category = category
 
-    # Write the result to the summary report text file
-    with open("Summaryreport.txt", "w") as file:
+    # Write the result to the "summary_report" text file
+    with open("summary_report.txt", "w") as file:
         file.write(f"[HIGHEST OVERHEAD] {highest_overhead_category.upper()}: {highest_overhead}%\n")
 
